@@ -9,4 +9,13 @@
         android:iconTint="@android:color/black"
         android:orderInCategory="100"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/post"
+        android:icon="@drawable/instagram_new_post_filled_24"
+        android:title="logout"
+        app:iconTint="@color/black"
+        android:iconTint="@android:color/black"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
 </menu>

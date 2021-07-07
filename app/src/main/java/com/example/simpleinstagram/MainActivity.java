@@ -20,15 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
+import com.example.simpleinstagram.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -149,23 +147,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void queryPosts(){
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null){
-                    Log.e(TAG,"Issue with getting posts ",e);
-                    return;
-                }
-                for(Post post : posts){
-                    Log.i(TAG,"Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-            }
-        });
-    }
-
     // Inflate the menu; this adds items to the action bar if it is present.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
             // navigate backwards to Login screen
             return true;
+        }
+        if(item.getItemId() == R.id.post){
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

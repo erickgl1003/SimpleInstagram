@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         //final Fragment fragment2 = new SecondFragment();
 
-
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment1).commit();
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

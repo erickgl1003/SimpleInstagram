@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/icont"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleInstagram">
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".DetailsActivity" />
         <activity android:name=".FeedActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -22,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".PostActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -2,6 +2,10 @@ package com.example.simpleinstagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,8 +77,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
         public void bind(Post post, int position) {
             // Bind the post data to the view elements
-            tvDescription.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername());
+            String username = post.getUser().getUsername();
+            String desc = post.getDescription();
+            String description = username + " " + desc;
+            Spannable spannable = new SpannableString(description);
+            spannable.setSpan(new ForegroundColorSpan(Color.BLACK),0,description.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,username.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tvDescription.setText(spannable, TextView.BufferType.SPANNABLE);
+            tvUsername.setText(username);
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".FeedActivity">
+    tools:context=".FeedFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"

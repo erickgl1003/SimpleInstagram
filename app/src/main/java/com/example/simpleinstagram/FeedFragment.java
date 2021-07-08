@@ -27,13 +27,13 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends Fragment {
+public class FeedFragment extends Fragment {
 
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
-    private RecyclerView rvPosts;
+    protected RecyclerView rvPosts;
     public static final String TAG = "FeedActivity";
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class FeedActivity extends Fragment {
 
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key

@@ -32,7 +32,7 @@ import com.parse.SaveCallback;
 
 import java.io.File;
 
-public class PostActivity extends Fragment {
+public class PostFragment extends Fragment {
 
     public static final String TAG = "MainActivity";
     private EditText etDescription;

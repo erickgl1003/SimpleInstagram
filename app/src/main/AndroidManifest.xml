@@ -15,7 +15,7 @@
         android:theme="@style/Theme.SimpleInstagram">
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".FeedActivity" />
+        <activity android:name=".FeedFragment" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostActivity" />
+        <activity android:name=".PostFragment" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

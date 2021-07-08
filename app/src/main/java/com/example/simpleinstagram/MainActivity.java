@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         // define your fragments here
-        final Fragment fragment1 = new FeedActivity();
-        final Fragment fragment2 = new PostActivity();
+        final Fragment fragment1 = new FeedFragment();
+        final Fragment fragment2 = new PostFragment();
+        final Fragment fragment3 = new ProfileFragment();
 
         //final Fragment fragment2 = new SecondFragment();
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.profile:
                     default:
-                        fragment = fragment1;
+                        fragment = fragment3;
                         break;
 
                 }

@@ -23,6 +23,7 @@ import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
@@ -68,12 +69,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
+        private TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
         public void bind(Post post, int position) {
             // Bind the post data to the view elements
@@ -89,6 +92,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+
+            Date createdAt = post.getCreatedAt();
+            String timeAgo = Post.calculateTimeAgo(createdAt);
+            tvTime.setText(timeAgo);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -6,6 +6,7 @@
         android:enabled="true"
         android:icon="@drawable/instagram_home_filled_24"
         android:title="@string/home"
+
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/post"

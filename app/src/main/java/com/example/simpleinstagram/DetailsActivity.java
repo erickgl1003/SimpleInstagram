@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         String timeAgo = Post.calculateTimeAgo(createdAt);
         tvTime.setText(timeAgo);
 
-        ParseUser currUser = ParseUser.getCurrentUser();
+        ParseUser currUser = post.getUser();
 
         ParseFile image2 = (ParseFile) currUser.getParseFile("pp");
         Log.i("Profile Fragment", "image value " + image2);

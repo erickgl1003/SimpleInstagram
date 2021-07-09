@@ -58,7 +58,7 @@ public class PostFragment extends Fragment {
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
-        //queryPosts();
+
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override

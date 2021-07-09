@@ -1,6 +1,7 @@
 package com.example.simpleinstagram;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.transition.Visibility;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +38,6 @@ import java.io.OutputStream;
 public class SignupActivity extends AppCompatActivity {
 
     public static final String TAG = "SignupActivity";
-    public static final int GET_FROM_GALLERY = 14;
     public static final int UPLOAD_REQUEST = 50;
 
     private EditText etUsername;
@@ -48,10 +48,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextView tvLog;
 
     Bitmap bitmap = null;
-    Uri selectedImage = null;
-
-    // ------TEST-------
-    File imagT;
+    File imagT = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +67,10 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onUploadPhoto();
-                //startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
             }
         });
 
         btnSignup.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 Log.i(TAG,"onClick Sign in Button");
@@ -87,7 +82,6 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
                 Log.i(TAG,username + ", " + password);
-                //signUser(username, password);
                 signUserTest(username, password, imagT);
             }
         });
@@ -95,6 +89,7 @@ public class SignupActivity extends AppCompatActivity {
         tvLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(SignupActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -107,37 +102,10 @@ public class SignupActivity extends AppCompatActivity {
         startActivityForResult(i, UPLOAD_REQUEST);
     }
 
-    public Bitmap loadFromUri(Uri photoUri) {
-        Bitmap image = null;
-        try {
-            // check version of Android on device
-            if(Build.VERSION.SDK_INT > 27){
-                // on newer versions of Android, use the new decodeBitmap method
-                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), photoUri);
-                image = ImageDecoder.decodeBitmap(source);
-            } else {
-                // support older versions of Android by using getBitmap
-                image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //Detects request codes
-        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri photoUri = data.getData();
-            File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-
-            // Load the image located at photoUri into selectedImage
-            Bitmap selectedImage = loadFromUri(photoUri);
-            //new File(mediaStorageDir.getPath() + File.separator + fileName);
-        }
 
         if(requestCode == UPLOAD_REQUEST && resultCode == RESULT_OK && data != null){
             Uri photoUri = data.getData();
@@ -158,11 +126,10 @@ public class SignupActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
                 os.flush();
                 os.close();
+                btnSignup.setVisibility(View.VISIBLE);
             } catch (Exception e) {
                 Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
             }
-
-            Log.d(TAG, "Test: " + imagT.getAbsolutePath());
         }
     }
 
@@ -178,67 +145,29 @@ public class SignupActivity extends AppCompatActivity {
                 if(e == null){
                     Log.d(TAG, "Signed up successfully");
                     ParseUser curr = ParseUser.getCurrentUser();
-                    curr.put("pp", new ParseFile(file));
-                    curr.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if(e == null){
-                                Log.d(TAG, "Saved photo");
-                                goMainAcitivty();
-                            }
-                            else{
-                                Log.d(TAG, "Error saving photo:" + e.getMessage() + "\n" + e.getCause());
-                            }
-                        }
-                    });
+                    savePhoto(curr, new ParseFile(file));
+
                 }
             }
         });
     }
 
-    private void signUser(String username, String password){
-        Log.i(TAG, "Attempting to signup user " + username);
-        ParseUser user = new ParseUser();
-        // Set core properties
-        user.setUsername(username);
-        user.setPassword(password);
-
-        if(selectedImage != null){
-            //ParseFile photo = new ParseFile(new File(selectedImage.getPath()));
-            Log.i(TAG, "Selected image is not null");
-            //user.put("pp",photo);
-            user.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-                        Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT);
-                        ParseUser user = ParseUser.getCurrentUser();
-                        ParseFile photo = new ParseFile(new File(selectedImage.getPath()));
-                        photo.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                user.put("pp", photo);
-                                user.saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        Log.e("heiwre", e.toString());
-                                        goMainAcitivty();
-                                    }
-                                });
-                            }
-                        });
-
-                    } else {
-                        Log.e("aksdjl", e.toString());
-                    }
+    private void savePhoto(ParseUser curr, ParseFile parseFile) {
+        curr.put("pp", parseFile);
+        curr.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    Log.d(TAG, "Saved photo");
+                    goMainAcitivty();
                 }
-            });
-
-        }
-        else{
-            Toast.makeText(SignupActivity.this,"You need to upload a valid profile picture!",Toast.LENGTH_SHORT);
-        }
+                else{
+                    Log.d(TAG, "Error saving photo:" + e.getMessage() + "\n" + e.getCause());
+                }
+            }
+        });
     }
+
 
     private void goMainAcitivty() {
         Intent i = new Intent(this,MainActivity.class);

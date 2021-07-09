@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private TextView tvSign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        tvSign = findViewById(R.id.tvSign);
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -43,6 +46,15 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password);
+            }
+        });
+
+        tvSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,SignupActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -57,8 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with login ",e );
                     return;
                 }
-                goMainAcitivty();
+
                 Toast.makeText(LoginActivity.this,"Success!",Toast.LENGTH_SHORT);
+                goMainAcitivty();
             }
         });
     }

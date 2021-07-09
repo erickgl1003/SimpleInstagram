@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignupActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -13,64 +12,87 @@
         android:layout_centerInParent="true"
 
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-50dp"
-        android:gravity="center">
-
+        android:gravity="center"
+        android:layout_marginTop="-50dp">
         <ImageView
-            android:id="@+id/ivLogo"
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:src="@drawable/insta"
+            android:id="@+id/ivLogo"
 
             />
 
         <EditText
             android:id="@+id/etUsername"
+            android:layout_marginTop="50dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivLogo"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="50dp"
+            android:layout_below="@id/ivLogo"
             android:ems="10"
             android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:hint="Username" />
 
         <EditText
             android:id="@+id/etPassword"
+            android:layout_marginTop="10dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etUsername"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
             android:ems="10"
             android:gravity="center"
             android:hint="Password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="100dp"
+        <EditText
+            android:id="@+id/etPasswordConfirm"
+            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etPassword"
+            android:layout_below="@+id/etPassword"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
+            android:ems="10"
             android:gravity="center"
-            android:text="Login" />
+            android:hint="Confirm password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnPhoto"
+            android:layout_width="200dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPasswordConfirm"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Upload profile picture" />
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnPhoto"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Signup" />
 
         <TextView
-            android:id="@+id/tvSign"
+            android:id="@+id/tvLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnLogin"
+            android:layout_below="@id/btnSignup"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:text="Don't have an account? Click here to sign up!"
+            android:text="Already have an account? Click here to log in!"
             android:textColor="#008AC8"
 
             />
